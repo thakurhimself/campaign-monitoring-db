@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import CampaignInsights from "@/components/CampaignInsights";
+import DetailsField from "@/components/DetailsField";
 
 export default async function Campaign({params}: {params: Record<string, string>}) {
     const { campId } = await params;
@@ -21,12 +22,11 @@ export default async function Campaign({params}: {params: Record<string, string>
 
         campaign = finalData[0].campaign;
         campaignInsight = finalData[1].insights;
-
     } catch (error) {
         throw error
     }
 
-    const detailsStylesClasses = 'flex items-center justify-between [&>p]:text-xl'
+    console.log("campaign, campaignInsight", campaign, campaignInsight)
 
     return (
         <div>
@@ -44,31 +44,12 @@ export default async function Campaign({params}: {params: Record<string, string>
             <section 
             className="w-full md:w-2/3 lg:w-1/2 xl:w-1/3 mx-auto p-3 shadow-xl rounded-lg border border-[#ddd]"
             >
-                <section 
-                className={detailsStylesClasses}
-                >
-                    <p>Name</p>
-                    <p>{campaign.name}</p>
-                </section>
+                <DetailsField label="Name" value={campaign.name}/>
+                <DetailsField label="Status" value={campaign.status}/>
+                <DetailsField label="Budget" value={campaign.budget} />
+                <DetailsField label="Daily Budget" value={campaign.daily_budget}/>
 
-                <section
-                className={detailsStylesClasses}
-                >
-                    <p>Status</p>
-                    <p>{campaign.status}</p>
-                </section>
-
-                <section className={detailsStylesClasses}>
-                    <p>Budget</p>
-                    <p>{campaign.budget}</p>
-                </section>
-
-                <section className={detailsStylesClasses}>
-                    <p>Daily Budget</p>
-                    <p>{campaign.daily_budget}</p>
-                </section>
-
-                <section className={detailsStylesClasses}>
+                <section className={`flex items-center justify-between [&>p]:text-xl`}>
                     <p>Platform</p>
                     <section className="[&>span]:text-xl">
                         {
@@ -82,11 +63,7 @@ export default async function Campaign({params}: {params: Record<string, string>
                         }
                     </section>
                 </section>
-
-                <section className={detailsStylesClasses}>
-                    <p>Created At</p>
-                    <p>{new Date(campaign.created_at).toLocaleString()}</p>
-                </section>
+                <DetailsField label="Created At" value={new Date(campaign.created_at).toLocaleString()} />
             </section>
 
             {/* Campaign Details */}
