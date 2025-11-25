@@ -27,7 +27,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <header className="p-3 bg-slate-900 dark:bg-slate-700">
+          <p className="text-slate-300 font-bold md:text-lg">Dashboard</p>
+        </header>
+        <div className="p-3">
+          {children}
+        </div>
       </body>
     </html>
   );
